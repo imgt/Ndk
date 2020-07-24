@@ -1,11 +1,14 @@
 package com.lg.ndk
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
 import com.lg.ndk.listener.NativeListener
 import kotlinx.android.synthetic.main.activity_main.*
+
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,12 +20,12 @@ class MainActivity : AppCompatActivity() {
         sample_text.setText(stringFromJNI())
         registerListener(object : NativeListener {
             override fun showLog(level: Int, msg: String?) {
-                tv.setText("$level----$msg")
+                tv.text = "$level----$msg"
             }
         })
 
         btn.setOnClickListener {
-          init(sample_text.text.toString()+"回调")
+            startActivity(Intent(this,CaseActivity::class.java))
         }
 
         sample_text.addTextChangedListener(object : TextWatcher {
@@ -68,6 +71,7 @@ class MainActivity : AppCompatActivity() {
      * @param listener
      */
     external fun registerListener(listener: NativeListener)
+
 
     companion object {
         // Used to load the 'native-lib' library on application startup.

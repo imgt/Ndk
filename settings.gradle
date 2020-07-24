@@ -1,2 +1,3 @@
 rootProject.name='Ndk'
-include ':app'
+include ':app', ':autolayouts'
+project(':autolayouts').projectDir = new File('autolayout')

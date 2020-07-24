@@ -20,6 +20,10 @@ android {
                 cppFlags "-fexceptions"
             }
         }
+        ndk {
+            // 这里面指定的是 cpu 的架构
+            abiFilters 'armeabi-v7a','arm64-v8a'//,'armeabi', 'x86''armeabi-v7a','arm64-v8a'
+        }
     }
 
     buildTypes {
@@ -31,8 +35,15 @@ android {
 
     externalNativeBuild {
         cmake {
-            path "src/main/cpp/CMakeLists.txt"
+            path "CMakeLists.txt"
             version "3.10.2"
+        }
+    }
+
+    sourceSets {
+        main {
+            jni.srcDirs = [] //屏蔽掉默认的jni编译生成过程
+            jniLibs.srcDirs = ['libs']
         }
     }
 }
@@ -46,4 +57,8 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation'com.github.chrisbanes.photoview:library:1.2.4'
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    implementation 'com.zhy.base:fileprovider:1.0.0'
+    implementation project(':autolayouts')
 }
